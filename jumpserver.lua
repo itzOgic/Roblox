@@ -30,7 +30,7 @@ local function TPReturner(placeId)
 	for i,v in pairs(Site.data) do
 		local Possible = true
 		ID = tostring(v.id)
-		if tonumber(v.playing) < tonumber(v.maxPlayers) - 2 and tonumber(v.playing) > 8 then
+		if tonumber(v.playing) < tonumber(v.maxPlayers) - 2 and tonumber(v.playing) > 1 then
 			for _,Existing in pairs(AllIDs) do
 				if num ~= 0 then
 					if ID == tostring(Existing) then
