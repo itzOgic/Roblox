@@ -1,7 +1,6 @@
 local player = game.Players.LocalPlayer
 local autoappraise = true
 local statFolder,Filtered,tools
-local delay = 0.8
 
 local function getTools()
 	for i,v in pairs(player.Character:GetChildren()) do
@@ -58,7 +57,7 @@ local function AutoAppraise()
 			Filtered = applyFilter(statFolder)
 			if Filtered then break end
 			workspace.world.npcs.Appraiser.appraiser.appraise:InvokeServer()
-			task.wait(delay)
+			task.wait(filterData.delay)
 		end
 	until Filtered
 	autoappraise = false
