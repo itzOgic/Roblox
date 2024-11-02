@@ -1,7 +1,7 @@
 local player = game.Players.LocalPlayer
 local autoappraise = true
 local statFolder,Filtered,tools
-local delay = 1
+local delay = 0.8
 
 local function getTools()
 	for i,v in pairs(player.Character:GetChildren()) do
