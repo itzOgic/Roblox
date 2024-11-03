@@ -1184,7 +1184,6 @@ function SolarisLib:New(Config)
                         TextboxFrame.Box:CaptureFocus()
 					end
 				end)
-				
 
                 TextboxFrame.Box.FocusLost:Connect(function()
                     local txt = TextboxFrame.Box.Text
@@ -1193,6 +1192,10 @@ function SolarisLib:New(Config)
                     end  
                     return callback(txt)
 				end)
+				
+				function Textbox:Set(tochange)
+                    TextboxFrame.Box.Text = tochange
+                end 
 
                 UserInputService.InputBegan:Connect(function(input)
 					if input.KeyCode == Enum.KeyCode.Escape and TextboxFrame.Box:IsFocused() then
