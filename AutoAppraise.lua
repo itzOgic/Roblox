@@ -1,7 +1,7 @@
 local SolarisLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/itzOgic/Roblox/main/SolarisLib.lua")()
 local player = game.Players.LocalPlayer
 local statFolder,Filtered,tools
-local WeightVal = 100
+local WeightVal,DelayVal = 100, 0.8
 local MutList = {"Aurora", "Mythical", "Midas", "Ghastly", "Sinister", "Mosaic", "Electric", "Glossy", "Silver", "Darkened", "Translucent", "Frozen", "Albino", "Negative"}
 local win = SolarisLib:New({
   Name = "Fisch Auto Appraise by itzOgic",
@@ -12,18 +12,17 @@ local tab = win:Tab("Auto Appraise")
 local sec = tab:Section("Menu")
 
 local AutoToggle = sec:Toggle("Auto Appraise Toggle", false, "AutoToggle", function(t) end)
-local DelaySlider = sec:Slider("Appraise Delay", 0.5, 1, 0.1, 0.1, "DelaySlider", function(t) end)
+local AppraiseDelay = sec:Textbox("Input Appraise Delay", false, function(t) DelayVal = t end)
+-- local DelaySlider = sec:Slider("Appraise Delay", 0.5, 1, 0.1, 0.1, "DelaySlider", function(t) end)
 local WeightToggle = sec:Toggle("Weight Filter Toggle", false, "WeightToggle", function(t) end)
-local WeightBox = sec:Textbox("Input Weight Target", false, function(t)
-	WeightVal = t
-end)
+local WeightBox = sec:Textbox("Input Weight Target", false, function(t) WeightVal = t end)
 -- local WeightSlider = sec:Slider("Target Weight", 100,10000,0,10, "WeightSlider", function(t) end)
 local SparklingToggle = sec:Toggle("Sparkling", false, "SparklingToggle", function(t) end)
 local ShinyToggle = sec:Toggle("Shiny", false, "ShinyToggle", function(t) end)
 local MutationToggle = sec:Toggle("Mutation Toggle", false, "MutationToggle", function(t) end)
 local MutationList = sec:MultiDropdown("Mutation Target", MutList, {"Glossy" ,"Ghastly"},"MutationList", function(t) end)
 WeightBox:Set("100")
-DelaySlider:Set(0.8)
+AppraiseDelay:Set("0.8")
 
 local function has_value(tab, val)
 	for index, value in ipairs(tab) do		
@@ -94,7 +93,7 @@ local function AutoAppraise()
 		Filtered = applyFilter(statFolder)
 		if Filtered then return end
 		workspace.world.npcs.Appraiser.appraiser.appraise:InvokeServer()
-		task.wait(DelaySlider.Value)
+		task.wait(tonumber(DelayVal))
 	end
 end
 
