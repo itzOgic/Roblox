@@ -1,10 +1,11 @@
-local SolarisLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/itzOgic/Roblox/main/SolarisLib.lua")()
+-- local SolarisLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/itzOgic/Roblox/main/SolarisLib.lua")()
+local SolarisLib = loadfile("SolarisLib.lua")()
 local fishModule = require(game:GetService("ReplicatedStorage").modules.library.fish)
 local player = game.Players.LocalPlayer
 local statFolder,Filtered
 local WeightVal,DelayVal = 100, 0.8
 local fishDone = {}
-local MutList = {"Aurora", "Mythical", "Midas", "Ghastly", "Sinister", "Mosaic", "Electric", "Glossy", "Silver", "Darkened", "Translucent", "Frozen", "Albino", "Negative"}
+local MutList = {"Any","Aurora", "Mythical", "Midas", "Ghastly", "Sinister", "Mosaic", "Electric", "Glossy", "Silver", "Darkened", "Translucent", "Frozen", "Albino", "Negative"}
 local win = SolarisLib:New({
   	Name = "Fisch Auto Appraise by itzOgic",
   	FolderToSave = "SolarisLibStuff"
@@ -40,7 +41,7 @@ local WeightTarget = sec:Dropdown("Weight Target", {"Big","Giant"},"Big","Weight
 local SparklingToggle = sec:Toggle("Require Sparkling", false, "SparklingToggle", function() fishDone = {} end)
 local ShinyToggle = sec:Toggle("Require Shiny", false, "ShinyToggle", function() fishDone = {} end)
 local MutationToggle = sec:Toggle("Mutation Toggle", false, "MutationToggle", function() end)
-local MutationList = sec:MultiDropdown("Mutation Target", MutList, {"Glossy" ,"Ghastly"},"MutationList", function() fishDone = {} end)
+local MutationList = sec:MultiDropdown("Mutation Target", MutList, {"Any"},"MutationList", function() fishDone = {} end)
 AppraiseDelay:Set("0.8")
 
 local function switchFish()
@@ -100,7 +101,10 @@ local function applyFilter(fish)
 	end
 	if MutationToggle.Value then
 		local Mutation = statFolder:FindFirstChild("Mutation")
+		local Any = table.find(MutList, "Any")
+		
 		if not Mutation then return false end
+		if Any then return true end
 		if not hasValue(MutationList.Value, Mutation.Value) then
 			return false
 		end
