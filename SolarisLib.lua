@@ -902,7 +902,8 @@ function SolarisLib:New(Config)
             function ItemHold:Dropdown(text,list,def,flag,callback)
                 local Dropdown,DropMain,OptionPreset = {Value = nil, Toggled = false, Options = list}, game:GetObjects("rbxassetid://7027964359")[1], game:GetObjects("rbxassetid://7021432326")[1]
                 DropMain.Parent = Section
-                DropMain.Btn.Title.Text = text
+                DropMain.Btn.Title.RichText = true
+                DropMain.Btn.Title.Text = string.format([[<font color="#00FF00">%s</font>]],text)
                 DropMain.Name = text .. "element"
                 
 
@@ -923,7 +924,7 @@ function SolarisLib:New(Config)
 
                         Option.MouseButton1Click:Connect(function()
                             Dropdown.Value = option
-                            DropMain.Btn.Title.Text = text .. " - " .. option
+                            DropMain.Btn.Title.Text = text .. ' - ' .. string.format([[<font color="#00FF00">%s</font>]],option)
                             Ripple(Option)
                             return callback(Dropdown.Value)
                         end)
@@ -935,7 +936,7 @@ function SolarisLib:New(Config)
                             else
                                 Option.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].DropdownItem
                             end
-                                DropMain.Btn.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                                -- DropMain.Btn.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                             end
                         end)
                     end   
@@ -960,14 +961,14 @@ function SolarisLib:New(Config)
 
                 function Dropdown:Set(val)
 					Dropdown.Value = val
-                    DropMain.Btn.Title.Text = text .. " - " .. val
+                    DropMain.Btn.Title.Text = text .. ' - ' .. string.format([[<font color="#00FF00">%s</font>]],val)
 					return callback(Dropdown.Value)
 				end
 
                 spawn(function()
                     while wait() do
                         DropMain.Btn.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].Dropdown
-                        DropMain.Btn.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                        -- DropMain.Btn.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                         DropMain.Btn.Ico.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                     end
                 end)
@@ -980,7 +981,8 @@ function SolarisLib:New(Config)
             function ItemHold:MultiDropdown(text,list,def,flag,callback)
                 local Dropdown,DropMain,OptionPreset = {Value = {}, Toggled = false, Options = list}, game:GetObjects("rbxassetid://7027964359")[1], game:GetObjects("rbxassetid://7021432326")[1]
                 DropMain.Parent = Section
-                DropMain.Btn.Title.Text = text
+                DropMain.Btn.Title.RichText = true
+                DropMain.Btn.Title.Text = string.format([[<font color="#00FF00">%s</font>]],text)
                 DropMain.Name = text .. "element"
                 
 
@@ -1002,11 +1004,13 @@ function SolarisLib:New(Config)
                         Option.MouseButton1Click:Connect(function()
                             if table.find(Dropdown.Value, option) then				
 								table.remove(Dropdown.Value, table.find(Dropdown.Value, option))
-								DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
+								-- DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
+                                DropMain.Btn.Title.Text = text .. ' - ' .. string.format([[<font color="#00FF00">%s</font>]],table.concat(Dropdown.Value, ", "))
 								callback(Dropdown.Value)
 							else
 								table.insert(Dropdown.Value, option)
-								DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
+								-- DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
+                                DropMain.Btn.Title.Text = text .. ' - ' .. string.format([[<font color="#00FF00">%s</font>]],table.concat(Dropdown.Value, ", "))
 								callback(Dropdown.Value)
 							end
                             Ripple(Option)
@@ -1045,7 +1049,7 @@ function SolarisLib:New(Config)
 
                 function Dropdown:Set(val)
 					Dropdown.Value = val
-                    DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
+                    DropMain.Btn.Title.Text = text .. ' - ' .. string.format([[<font color="#00FF00">%s</font>]],table.concat(Dropdown.Value, ", "))
 					return callback(Dropdown.Value)
 				end
 
