@@ -1,5 +1,4 @@
--- local SolarisLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/itzOgic/Roblox/main/SolarisLib.lua")()
-local SolarisLib = loadfile("SolarisLib.lua")()
+local SolarisLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/itzOgic/Roblox/main/SolarisLib.lua")()
 local fishModule = require(game:GetService("ReplicatedStorage").modules.library.fish)
 local player = game.Players.LocalPlayer
 local statFolder,Filtered
