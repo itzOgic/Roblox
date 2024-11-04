@@ -95,6 +95,6 @@ local function AutoAppraise()
 	end
 end
 
-while wait() do
+while task.wait() do
 	AutoAppraise()
 end
