@@ -22,7 +22,7 @@ end
 local function getallOwnedFish()
 	local OwnedList = {}
 	for i, fish in next, player.Backpack:GetChildren() do
-		if not hasValue(OwnedList,fish.Name) then
+		if not hasValue(OwnedList,fish.Name) and fish:FindFirstChild("Fish") then
 			table.insert(OwnedList, fish.Name)
 		end
 	end
