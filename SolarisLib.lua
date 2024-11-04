@@ -930,8 +930,12 @@ function SolarisLib:New(Config)
 
                         spawn(function()
                             while wait() do
-                               Option.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].DropdownItem
-                               DropMain.Btn.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                            if Dropdown.Value == option then
+                                Option.BackgroundColor3 = Color3.fromRGB(0, 74, 0)
+                            else
+                                Option.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].DropdownItem
+                            end
+                                DropMain.Btn.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                             end
                         end)
                     end   
@@ -949,7 +953,6 @@ function SolarisLib:New(Config)
                     end    
                     AddOptions(opts)
                 end    
-             
 
                 DropMain.Btn.MouseButton1Click:Connect(function()
                     ToggleDrop()
@@ -963,9 +966,9 @@ function SolarisLib:New(Config)
 
                 spawn(function()
                     while wait() do
-                       DropMain.Btn.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].Dropdown
-                       DropMain.Btn.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
-                       DropMain.Btn.Ico.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                        DropMain.Btn.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].Dropdown
+                        DropMain.Btn.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                        DropMain.Btn.Ico.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                     end
                 end)
 
@@ -1011,8 +1014,12 @@ function SolarisLib:New(Config)
 
                         spawn(function()
                             while wait() do
-                               Option.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].DropdownItem
-                               DropMain.Btn.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                                if table.find(Dropdown.Value, option) then
+                                    Option.BackgroundColor3 = Color3.fromRGB(0, 74, 0)
+                                else
+                                    Option.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].DropdownItem
+                                end
+                                DropMain.Btn.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                             end
                         end)
                     end   
@@ -1055,6 +1062,7 @@ function SolarisLib:New(Config)
                 SolarisLib.Flags[flag] = Dropdown
                 return Dropdown
             end    
+
             function ItemHold:Colorpicker(text,preset,flag,callback)
                 local ColorH, ColorS, ColorV = 1, 1, 1
                 local ColorPicker, ColorPreset, DragPreset = {Value = preset, Toggled = false}, game:GetObjects("rbxassetid://7329998014")[1]
