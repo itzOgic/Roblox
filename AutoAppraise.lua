@@ -36,7 +36,6 @@ local AppraiseAll = sec:Toggle("Appraise all Selected Fish", false, "AppraiseAll
 local FishSelection = sec:MultiDropdown("Selected Fish", allOwnedFish, {},"FishSelection", function() end)
 local AppraiseDelay = sec:Textbox("Appraise Delay", false, function(t) DelayVal = t end)
 local WeightToggle = sec:Toggle("Weight Filter Toggle", false, "WeightToggle", function() end)
--- local WeightTarget = sec:Dropdown("Weight Target", {"Big","Giant"},"Big","WeightTarget", function() end)
 local WeightTarget = sec:MultiDropdown("Weight Target", {"Big","Giant"}, {"Big","Giant"},"WeightTarget", function() fishDone = {} end)
 local SparklingToggle = sec:Toggle("Require Sparkling", false, "SparklingToggle", function() fishDone = {} end)
 local ShinyToggle = sec:Toggle("Require Shiny", false, "ShinyToggle", function() fishDone = {} end)
