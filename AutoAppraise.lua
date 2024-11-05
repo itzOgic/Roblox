@@ -125,7 +125,13 @@ local function AutoAppraise()
 			end
 			return
 		end
-		workspace.world.npcs.Appraiser.appraiser.appraise:InvokeServer()
+		local success, errorMsg = pcall(function()
+			workspace.world.npcs.Appraiser.appraiser.appraise:InvokeServer()
+		end)
+		if not success then
+			warn("Appraise Failed! Waiting for 60 Seconds before Continue", errorMsg)
+			task.wait(60)
+		end
 		task.wait(tonumber(DelayVal))
 	elseif not fish and AppraiseAll.Value then
 		switchFish()
