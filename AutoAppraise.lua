@@ -98,7 +98,7 @@ local function applyFilter(fish)
 	if ShinyToggle.Value and not statFolder:FindFirstChild("Shiny") then
 		return false
 	end
-	if MutationToggle.Value then
+	if MutationToggle.Value and next(MutationList.Value) ~= nil then
 		local Mutation = statFolder:FindFirstChild("Mutation")
 		local Any = table.find(MutationList.Value, "Any")
 		
