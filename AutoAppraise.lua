@@ -58,9 +58,9 @@ local function getWeightCategory(fish)
 	local weight = statFolder.Weight.Value
 	local Big = FishData[fishName] / 10
 	local Giant = (FishData[fishName] / 10) * 1.99
-	if weight >= Giant then
+	if weight > Giant then
 		return "Giant"
-	elseif weight >= Big then
+	elseif weight > Big then
 		return "Big"
 	else
 		return "Regular"
