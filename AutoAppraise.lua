@@ -100,7 +100,7 @@ local function applyFilter(fish)
 	end
 	if MutationToggle.Value then
 		local Mutation = statFolder:FindFirstChild("Mutation")
-		local Any = table.find(MutList, "Any")
+		local Any = table.find(MutationList.Value, "Any")
 		
 		if not Mutation then return false end
 		if Any then return true end
