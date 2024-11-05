@@ -6,8 +6,8 @@ local WeightVal,DelayVal = 100, 0.8
 local fishDone = {}
 local MutList = {"Any", "Albino", "Darkened", "Electric", "Frozen", "Ghastly", "Glossy", "Midas", "Mosaic", "Mythical", "Negative", "Silver", "Sinister", "Translucent"}
 local win = SolarisLib:New({
-  	Name = "Fisch Auto Appraise by itzOgic",
-  	FolderToSave = "SolarisLibStuff"
+	Name = "Fisch Auto Appraise by itzOgic",
+	FolderToSave = "SolarisLibStuff"
 })
 
 local tab = win:Tab("Auto Appraise")
@@ -36,7 +36,8 @@ local AppraiseAll = sec:Toggle("Appraise all Selected Fish", false, "AppraiseAll
 local FishSelection = sec:MultiDropdown("Selected Fish", allOwnedFish, {},"FishSelection", function() end)
 local AppraiseDelay = sec:Textbox("Appraise Delay", false, function(t) DelayVal = t end)
 local WeightToggle = sec:Toggle("Weight Filter Toggle", false, "WeightToggle", function() end)
-local WeightTarget = sec:Dropdown("Weight Target", {"Big","Giant"},"Big","WeightTarget", function() end)
+-- local WeightTarget = sec:Dropdown("Weight Target", {"Big","Giant"},"Big","WeightTarget", function() end)
+local WeightTarget = sec:MultiDropdown("Weight Target", {"Big","Giant"}, {"Big","Giant"},"WeightTarget", function() fishDone = {} end)
 local SparklingToggle = sec:Toggle("Require Sparkling", false, "SparklingToggle", function() fishDone = {} end)
 local ShinyToggle = sec:Toggle("Require Shiny", false, "ShinyToggle", function() fishDone = {} end)
 local MutationToggle = sec:Toggle("Mutation Toggle", false, "MutationToggle", function() end)
@@ -89,8 +90,10 @@ end)
 
 local function applyFilter(fish)
 	statFolder = fish.link.Value
-	if WeightToggle.Value and getWeightCategory(fish) ~= WeightTarget.Value then
-		return false
+	if WeightToggle.Value and next(WeightTarget.Value) ~= nil then
+		if not hasValue(WeightTarget.Value,getWeightCategory(fish)) then
+			return false
+		end
 	end
 	if SparklingToggle.Value and not statFolder:FindFirstChild("Sparkling") then
 		return false
