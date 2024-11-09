@@ -239,11 +239,26 @@ function SolarisLib:New(Config)
     local TabPreset = game:GetObjects("rbxassetid://6958615840")[1]
     local SectionPreset = game:GetObjects("rbxassetid://7121846230")[1]
     local ContainerPreset = game:GetObjects("rbxassetid://7121886326")[1]
+    local GuiService = game:GetService("GuiService")
+    local ScreenCenterX = GuiService:GetScreenResolution().X / 2
+    local ScreenCenterY = GuiService:GetScreenResolution().Y / 2
     local MFrame = MainUI.MainFrame
     MainUI.Parent = Solaris
     MFrame.TopBar.TopFrameTitle.Text = Config.Name
     MakeDraggable(MFrame.TopBar, MainUI) 
     local oldScript = script
+
+    local IconGUI = Instance.new("ScreenGui")
+    IconGUI.Name = "GUI Icon"
+    IconGUI.Parent = gethui()
+    GUIIcon = Instance.new("TextButton", IconGUI)
+    GUIIcon.Size = UDim2.new(0,60,0,60)
+    GUIIcon.Position = UDim2.new(0, ScreenCenterX - 15, 0, ScreenCenterY / 20 - 15)
+    GUIIcon.Text = "Open"
+    GUIIcon.TextColor3 = Color3.fromRGB(255, 255, 255)
+    GUIIcon.BackgroundColor3 = Color3.fromRGB(26, 28, 36)
+    GUIIcon.Draggable = true
+    GUIIcon.Visible = false
 
     local MenuBtnPreset = game:GetObjects("rbxassetid://7037141226")[1]
     local MusicBtn = MenuBtnPreset:Clone()
@@ -653,8 +668,14 @@ function SolarisLib:New(Config)
     MFrame.TopBar.ButtonHolder.CloseBtn.MouseButton1Click:Connect(function()
         uitoggled = not uitoggled
         MainUI.Visible = uitoggled
+        GUIIcon.Visible = not uitoggled
     end)
 
+    GUIIcon.MouseButton1Click:Connect(function()
+        uitoggled = not uitoggled
+        MainUI.Visible = uitoggled
+        GUIIcon.Visible = not uitoggled
+    end)
 
     function SearchConstructor()
         function StitchElements()
@@ -689,6 +710,7 @@ function SolarisLib:New(Config)
 		if (Input.KeyCode.Name == SolarisLib.Settings.CloseBind or Input.UserInputType.Name == SolarisLib.Settings.CloseBind) and not closebindbinding then
             uitoggled = not uitoggled
             MainUI.Visible = uitoggled
+            GUIIcon.Visible = not uitoggled
 		end
 	end)
 
