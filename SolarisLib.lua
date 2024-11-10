@@ -716,6 +716,9 @@ function SolarisLib:New(Config)
 
     spawn(function()
         while wait() do
+            ScreenCenterX = GuiService:GetScreenResolution().X / 2
+            ScreenCenterY = GuiService:GetScreenResolution().Y / 2
+            GUIIcon.Position = UDim2.new(0, ScreenCenterX - 15, 0, ScreenCenterY / 20 - 15)
             MFrame.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].MainFrame
             MFrame.TopBar.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TopBar
             MFrame.TopBar.ButtonHolder.CloseBtn.Ico.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
