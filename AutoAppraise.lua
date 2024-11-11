@@ -13,17 +13,10 @@ local win = SolarisLib:New({
 local tab = win:Tab("Auto Appraise")
 local sec = tab:Section("Menu")
 
-local function hasValue(tab, val)
-	for index, value in next, tab do		
-		if val == value then return true end
-	end
-	return false
-end
-
 local function getallOwnedFish()
 	local OwnedList = {}
 	for i, fish in next, player.Backpack:GetChildren() do
-		if not hasValue(OwnedList,fish.Name) and fish:FindFirstChild("fishscript") then
+		if not table.find(OwnedList,fish.Name) and fish:FindFirstChild("fishscript") then
 			table.insert(OwnedList, fish.Name)
 		end
 	end
@@ -45,7 +38,7 @@ AppraiseDelay:Set("0.8")
 
 local function switchFish()
 	for i,fish in next, player.Backpack:GetChildren() do
-		if hasValue(FishSelection.Value,fish.Name) and not hasValue(fishDone,fish) then
+		if table.find(FishSelection.Value,fish.Name) and not table.find(fishDone,fish) then
 			player.PlayerGui.hud.safezone.backpack.events.equip:FireServer(fish)
 			return
 		end
@@ -90,7 +83,7 @@ end)
 local function applyFilter(fish)
 	statFolder = fish.link.Value
 	if WeightToggle.Value and next(WeightTarget.Value) ~= nil then
-		if not hasValue(WeightTarget.Value,getWeightCategory(fish)) then
+		if not table.find(WeightTarget.Value,getWeightCategory(fish)) then
 			return false
 		end
 	end
@@ -106,7 +99,7 @@ local function applyFilter(fish)
 		
 		if not Mutation then return false end
 		if Any then return true end
-		if not hasValue(MutationList.Value, Mutation.Value) then
+		if not table.find(MutationList.Value, Mutation.Value) then
 			return false
 		end
 	end
@@ -119,7 +112,7 @@ local function AutoAppraise()
 	if fish then
 		Filtered = applyFilter(fish)
 		if Filtered then 
-			if AppraiseAll.Value and not hasValue(fishDone,fish) then
+			if AppraiseAll.Value and not table.find(fishDone,fish) then
 				table.insert(fishDone,fish)
 				switchFish()
 			end
