@@ -162,7 +162,7 @@ local function MakeDraggable(topbarobject, object)
     pcall(function()
 		local dragging, dragInput, mousePos, framePos = false
 		topbarobject.InputBegan:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 				dragging = true
 				mousePos = input.Position
 				framePos = object.Position
@@ -175,7 +175,7 @@ local function MakeDraggable(topbarobject, object)
 			end
 		end)
 		topbarobject.InputChanged:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseMovement then
+			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
 				dragInput = input
 			end
 		end)
@@ -978,7 +978,7 @@ function SolarisLib:New(Config)
                         end    
                     end    
                     AddOptions(opts)
-                end    
+                end
 
                 DropMain.Btn.MouseButton1Click:Connect(function()
                     ToggleDrop()
@@ -992,13 +992,15 @@ function SolarisLib:New(Config)
 
                 spawn(function()
                     while wait() do
-                        DropMain.Btn.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].Dropdown
-                        -- DropMain.Btn.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
-                        DropMain.Btn.Ico.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                        if DropMain then
+                            DropMain.Btn.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].Dropdown
+                            -- DropMain.Btn.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                            DropMain.Btn.Ico.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                        end
                     end
                 end)
 
-                Dropdown:Refresh(list,false)
+                Dropdown:Refresh(Dropdown.Options,false)
                 Dropdown:Set(def)
                 SolarisLib.Flags[flag] = Dropdown
                 return Dropdown
