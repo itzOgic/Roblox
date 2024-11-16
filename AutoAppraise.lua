@@ -31,7 +31,7 @@ local AppraiseDelay = sec:Textbox("Appraise Delay", false, function(t) DelayVal 
 local WeightToggle = sec:Toggle("Weight Filter Toggle", false, "WeightToggle", function() end)
 local WeightTarget = sec:MultiDropdown("Weight Target", {"Big","Giant"}, {"Big","Giant"},"WeightTarget", function() fishDone = {} end)
 local MutationToggle = sec:Toggle("Mutation Toggle", false, "MutationToggle", function() end)
-local MutationList = sec:MultiDropdown("Mutation Target", MutList, {"Any"},"MutationList", function() fishDone = {} end)
+local MutationList = sec:MultiDropdown("Mutation Target", MutList, {"Abyssal", "Hexed"},"MutationList", function() fishDone = {} end)
 local SparklingToggle = sec:Toggle("Require Sparkling", false, "SparklingToggle", function() fishDone = {} end)
 local ShinyToggle = sec:Toggle("Require Shiny", false, "ShinyToggle", function() fishDone = {} end)
 AppraiseDelay:Set("0.8")
