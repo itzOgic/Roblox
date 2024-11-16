@@ -74,7 +74,7 @@ player.Backpack.ChildAdded:Connect(function(instance)
 		repeat task.wait() until instance:FindFirstChild("link")
 		local oldtools = getHeldFish()
 		if oldtools then oldtools.Parent = player.Backpack end
-		if AutoToggle then
+		if AutoToggle.Value then
 			player.PlayerGui.hud.safezone.backpack.events.equip:FireServer(instance)
 		end
 	end
