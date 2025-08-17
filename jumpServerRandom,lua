@@ -1,0 +1,40 @@
+local TeleportService = game:GetService("TeleportService")
+local HttpService = game:GetService("HttpService")
+
+-- Fungsi untuk teleport ke random server
+local function TPToRandomServer(placeId)
+    -- Ambil daftar server dari API Roblox
+    local servers = HttpService:JSONDecode(
+        game:HttpGet("https://games.roblox.com/v1/games/" .. placeId .. "/servers/Public?sortOrder=Asc&limit=100")
+    )
+
+    local candidateServers = {}
+
+    -- Pilih server yang jumlah pemainnya > 1 dan tidak penuh
+    for _, v in pairs(servers.data) do
+        if tonumber(v.playing) > 1 and tonumber(v.playing) < tonumber(v.maxPlayers) then
+            table.insert(candidateServers, v.id)
+        end
+    end
+
+    -- Acak urutan server (Fisher-Yates shuffle)
+    for i = #candidateServers, 2, -1 do
+        local j = math.random(i)
+        candidateServers[i], candidateServers[j] = candidateServers[j], candidateServers[i]
+    end
+
+    -- Jika ada server valid, teleport ke salah satu (random pertama hasil shuffle)
+    if #candidateServers > 0 then
+        local randomServer = candidateServers[1]
+        TeleportService:TeleportToPlaceInstance(placeId, randomServer, game.Players.LocalPlayer)
+    else
+        warn("Tidak ada server cocok ditemukan.")
+    end
+end
+
+-- Looping untuk terus mencari server random
+while task.wait(5) do
+    pcall(function()
+        TPToRandomServer(game.PlaceId)
+    end)
+end
